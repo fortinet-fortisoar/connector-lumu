@@ -74,7 +74,7 @@ class LUMU:
 def get_incidents(config: dict, params: dict):
     try:
         lu = LUMU(config)
-        params = _build_payload(params)
+        params = _build_payload(params, get_incidents_dict)
         params_dict = {"key": config.get('company_key'), "page": params.pop("page", 1),
                        "items": params.pop("items", 50)}
         endpoint = '/api/incidents/all'

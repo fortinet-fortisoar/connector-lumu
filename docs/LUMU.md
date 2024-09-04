@@ -46,8 +46,8 @@ The following automated operations can be included in playbooks and you can also
 #### Input parameters
 <table border=1><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody><tr><td>From Date</td><td>Specify the Search start date. The default value is 7 days before the current date. Example: 2024-04-01T14:40:14.939Z
 </td></tr><tr><td>To Date</td><td>Specify the Search end date. The default value is the current date. Example: 2021-04-07T14:40:14.939Z
-</td></tr><tr><td>Incident Status</td><td>Specify the Incident status. If not specified, all objects are returned.
-</td></tr><tr><td>Adversary Type</td><td>Specify the Adversary types. If not specified, all objects are returned.
+</td></tr><tr><td>Incident Status</td><td>Select one or more incident statuses from the following options to filter incidents: Open, Muted, or Closed. If not specified, all objects are returned.
+</td></tr><tr><td>Adversary Type</td><td>Select one or more adversary types from the following options to filter incidents: C2C, Malware, DGA, Mining, Spam, or Phishing. If not specified, all objects are returned.
 </td></tr><tr><td>Labels</td><td>Specify the Label IDs in Comma separated Format. You may previously use the label API call to retrieve label IDs and names. If not specified, all objects are returned. Example: 2, 3, 5
 </td></tr><tr><td>Page</td><td>Specify the Page number of the result set.Default value is : 1
 </td></tr><tr><td>Limit</td><td>Limit the number of results per page. Default value is : 50, Max value can be : 100

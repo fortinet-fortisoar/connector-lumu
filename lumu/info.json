@@ -111,12 +111,12 @@
           "editable": true,
           "type": "multiselect",
           "options": [
-            "open",
-            "muted",
-            "closed"
+            "Open",
+            "Muted",
+            "Closed"
           ],
-          "tooltip": "Specify the Incident status. If not specified, all objects are returned.",
-          "description": "Specify the Incident status. If not specified, all objects are returned."
+          "tooltip": "Select one or more incident statuses from the following options to filter incidents: Open, Muted, or Closed. If not specified, all objects are returned.",
+          "description": "Select one or more incident statuses from the following options to filter incidents: Open, Muted, or Closed. If not specified, all objects are returned."
         },
         {
           "title": "Adversary Type",
@@ -133,8 +133,8 @@
             "Spam",
             "Phishing"
           ],
-          "tooltip": "Specify the Adversary types. If not specified, all objects are returned.",
-          "description": "Specify the Adversary types. If not specified, all objects are returned."
+          "tooltip": "Select one or more adversary types from the following options to filter incidents: C2C, Malware, DGA, Mining, Spam, or Phishing. If not specified, all objects are returned.",
+          "description": "Select one or more adversary types from the following options to filter incidents: C2C, Malware, DGA, Mining, Spam, or Phishing. If not specified, all objects are returned."
         },
         {
           "title": "Labels",
