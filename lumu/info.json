@@ -1,0 +1,461 @@
+{
+  "name": "lumu",
+  "label": "LUMU",
+  "version": "1.0.0",
+  "description": "LUMU provides Real-time detection, analysis, and response to network threats.",
+  "publisher": "Fortinet",
+  "cs_approved": false,
+  "cs_compatible": true,
+  "category": "Threat Detection",
+  "icon_small_name": "small.png",
+  "icon_large_name": "large.png",
+  "contributor": "",
+  "help_online": "https://github.com/fortinet-fortisoar/connector-lumu/blob/release/1.0.0/docs/LUMU.md",
+  "ingestion_supported": true,
+  "ingestion_modes": [
+    "scheduled"
+  ],
+  "configuration": {
+    "fields": [
+      {
+        "title": "Server URL",
+        "type": "text",
+        "name": "server_url",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "value": "https://defender.lumu.io",
+        "tooltip": "IP address or hostname of the LUMU server to which you will connect and perform automated operations.",
+        "description": "IP address or hostname of the LUMU server to which you will connect and perform automated operations."
+      },
+      {
+        "title": "Company Key",
+        "type": "password",
+        "name": "company_key",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "tooltip": "Specify the API Key that you will use to access the LUMU REST API.",
+        "description": "Specify the API Key that you will use to access the LUMU REST API."
+      },
+      {
+        "title": "Verify SSL",
+        "name": "verify_ssl",
+        "type": "checkbox",
+        "required": false,
+        "editable": true,
+        "visible": true,
+        "value": true,
+        "tooltip": "Specifies whether the SSL certificate for the server is to be verified or not.By default, this option is set as True.",
+        "description": "Specifies whether the SSL certificate for the server is to be verified or not.By default, this option is set as True."
+      }
+    ]
+  },
+  "operations": [
+    {
+      "operation": "get_incidents",
+      "title": "Get Incidents",
+      "description": "Retrieves a paginated list of incidents for the company. The items are listed by the most recent.",
+      "category": "investigation",
+      "annotation": "get_incidents",
+      "enabled": true,
+      "output_schema": {
+        "items": [
+          {
+            "id": "",
+            "timestamp": "",
+            "statusTimestamp": "",
+            "status": "",
+            "contacts": "",
+            "adversaries": [],
+            "adversaryTypes": [],
+            "labelDistribution": {
+              "17": ""
+            },
+            "totalEndpoints": "",
+            "lastContact": "",
+            "unread": ""
+          }
+        ],
+        "paginationInfo": {
+          "page": "",
+          "items": ""
+        }
+      },
+      "parameters": [
+        {
+          "title": "From Date",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "datetime",
+          "name": "fromDate",
+          "description": "Specify the Search start date. The default value is 7 days before the current date. Example: 2024-04-01T14:40:14.939Z",
+          "tooltip": "Specify the Search start date. The default value is 7 days before the current date. Example: 2024-04-01T14:40:14.939Z"
+        },
+        {
+          "title": "To Date",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "datetime",
+          "name": "toDate",
+          "description": "Specify the Search end date. The default value is the current date. Example: 2021-04-07T14:40:14.939Z",
+          "tooltip": "Specify the Search end date. The default value is the current date. Example: 2021-04-07T14:40:14.939Z"
+        },
+        {
+          "title": "Incident Status",
+          "name": "status",
+          "visible": true,
+          "required": false,
+          "editable": true,
+          "type": "multiselect",
+          "options": [
+            "open",
+            "muted",
+            "closed"
+          ],
+          "tooltip": "Specify the Incident status. If not specified, all objects are returned.",
+          "description": "Specify the Incident status. If not specified, all objects are returned."
+        },
+        {
+          "title": "Adversary Type",
+          "name": "adversary-types",
+          "visible": true,
+          "required": false,
+          "editable": true,
+          "type": "multiselect",
+          "options": [
+            "C2C",
+            "Malware",
+            "DGA",
+            "Mining",
+            "Spam",
+            "Phishing"
+          ],
+          "tooltip": "Specify the Adversary types. If not specified, all objects are returned.",
+          "description": "Specify the Adversary types. If not specified, all objects are returned."
+        },
+        {
+          "title": "Labels",
+          "name": "labels",
+          "visible": true,
+          "required": false,
+          "editable": true,
+          "type": "text",
+          "tooltip": "Specify the Label IDs in Comma separated Format. You may previously use the label API call to retrieve label IDs and names. If not specified, all objects are returned. Example: 2, 3, 5",
+          "description": "Specify the Label IDs in Comma separated Format. You may previously use the label API call to retrieve label IDs and names. If not specified, all objects are returned. Example: 2, 3, 5"
+        },
+        {
+          "title": "Page",
+          "name": "page",
+          "visible": true,
+          "required": false,
+          "editable": true,
+          "value": 1,
+          "type": "integer",
+          "tooltip": "Specify the Page number of the result set.Default value is : 1",
+          "description": "Specify the Page number of the result set.Default value is : 1"
+        },
+        {
+          "title": "Limit",
+          "name": "items",
+          "visible": true,
+          "required": false,
+          "editable": true,
+          "value": 50,
+          "type": "integer",
+          "tooltip": "Limit the number of results per page. Default value is : 50, Max value can be : 100",
+          "description": "Limit the number of results per page. Default value is : 50, Max value can be : 100"
+        }
+      ]
+    },
+    {
+      "operation": "get_incident_by_uuid",
+      "title": "Get Incident by UUID",
+      "description": "Retrieves a details of a specific Incident. The response for this operation may include extra data ( DNSPacketExtraInfo for example) in its parameters which may vary according to the data collection source",
+      "category": "investigation",
+      "annotation": "get_incident_by_uuid",
+      "enabled": true,
+      "output_schema": {
+        "id": "",
+        "timestamp": "",
+        "isUnread": "",
+        "contacts": "",
+        "adversaryId": "",
+        "adversaries": [],
+        "adversaryTypes": [],
+        "description": "",
+        "labelDistribution": {
+          "144": ""
+        },
+        "totalEndpoints": "",
+        "lastContact": "",
+        "actions": [
+          {
+            "datetime": "",
+            "userId": "",
+            "action": "",
+            "comment": ""
+          }
+        ],
+        "status": "",
+        "statusTimestamp": "",
+        "firstContactDetails": {
+          "uuid": "",
+          "datetime": "",
+          "host": "",
+          "types": [],
+          "details": [],
+          "endpointIp": "",
+          "endpointName": "",
+          "label": "",
+          "sourceType": "",
+          "sourceId": "",
+          "sourceData": {
+            "DNSPacketExtraInfo": {
+              "question": {
+                "type": "",
+                "name": "",
+                "class": ""
+              },
+              "responseCode": "",
+              "flags": {
+                "authoritative": "",
+                "recursion_available": "",
+                "truncated_response": "",
+                "checking_disabled": "",
+                "recursion_desired": "",
+                "authentic_data": ""
+              },
+              "answers": [
+                {
+                  "name": "",
+                  "type": "",
+                  "class": "",
+                  "ttl": "",
+                  "data": ""
+                }
+              ],
+              "opCode": ""
+            }
+          },
+          "isPlayback": ""
+        },
+        "lastContactDetails": {
+          "uuid": "",
+          "datetime": "",
+          "host": "",
+          "types": [],
+          "details": [],
+          "endpointIp": "",
+          "endpointName": "",
+          "label": "",
+          "sourceType": "",
+          "sourceId": "",
+          "sourceData": {
+            "DNSPacketExtraInfo": {
+              "question": {
+                "type": "",
+                "name": "",
+                "class": ""
+              },
+              "responseCode": "",
+              "flags": {
+                "authoritative": "",
+                "recursion_available": "",
+                "truncated_response": "",
+                "checking_disabled": "",
+                "recursion_desired": "",
+                "authentic_data": ""
+              },
+              "answers": [
+                {
+                  "name": "",
+                  "type": "",
+                  "class": "",
+                  "ttl": "",
+                  "data": ""
+                }
+              ],
+              "opCode": ""
+            }
+          },
+          "isPlayback": ""
+        }
+      },
+      "parameters": [
+        {
+          "title": "Incident UUID",
+          "name": "incident_uuid",
+          "visible": true,
+          "required": true,
+          "editable": true,
+          "type": "text",
+          "tooltip": "Specify the Incident UUID whose details you want to Fetch",
+          "description": "Specify the Incident UUID whose details you want to Fetch"
+        }
+      ]
+    },
+    {
+      "operation": "get_incident_context",
+      "title": "Get Incident Context",
+      "description": "Retrieves details of the context information from a specific Incident",
+      "category": "investigation",
+      "annotation": "get_incident_context",
+      "enabled": true,
+      "output_schema": {
+        "adversary_id": "",
+        "currently_active": "",
+        "deactivated_on": "",
+        "mitre": {
+          "details": [
+            {
+              "tactic": "",
+              "techniques": []
+            }
+          ],
+          "matrix": "",
+          "version": ""
+        },
+        "related_files": [],
+        "threat_details": [],
+        "threat_triggers": [],
+        "playbooks": [],
+        "external_resources": [],
+        "timestamp": ""
+      },
+      "parameters": [
+        {
+          "title": "Incident UUID",
+          "name": "incident_uuid",
+          "visible": true,
+          "required": true,
+          "editable": true,
+          "type": "text",
+          "tooltip": "Specify the Incident UUID whose context details you want to Fetch",
+          "description": "Specify the Incident UUID whose context details you want to Fetch"
+        },
+        {
+          "title": "Hash Type",
+          "name": "hash",
+          "visible": true,
+          "required": true,
+          "editable": true,
+          "value": "sha256",
+          "type": "text",
+          "tooltip": "Specify the Message-digest algorithm (Cryptographic Hash Function) you are requesting, can correspond to SHA256, SHA1 or MD5. If a hash type isn't requested, this will return a SHA256 hash by default. This parameter isn't case sensitive",
+          "description": "Specify the Message-digest algorithm (Cryptographic Hash Function) you are requesting, can correspond to SHA256, SHA1 or MD5. If a hash type isn't requested, this will return a SHA256 hash by default. This parameter isn't case sensitive"
+        }
+      ]
+    },
+    {
+      "operation": "get_incident_endpoints",
+      "title": "Get Incident Endpoints",
+      "description": "Retrieves a paginated summary of the endpoints affected by a specified incident",
+      "category": "investigation",
+      "annotation": "get_incident_endpoints",
+      "enabled": true,
+      "output_schema": {
+        "items": [
+          {
+            "label": "",
+            "endpoint": "",
+            "total": "",
+            "first": "",
+            "last": ""
+          }
+        ],
+        "paginationInfo": {
+          "page": "",
+          "items": ""
+        }
+      },
+      "parameters": [
+        {
+          "title": "Incident UUID",
+          "name": "incident_uuid",
+          "visible": true,
+          "required": true,
+          "editable": true,
+          "type": "text",
+          "tooltip": "Specify the Incident UUID whose Endpoints details you want to Fetch",
+          "description": "Specify the Incident UUID whose Endpoints details you want to Fetch"
+        },
+        {
+          "title": "Endpoint IDs",
+          "name": "endpoints",
+          "visible": true,
+          "required": false,
+          "editable": true,
+          "type": "text",
+          "tooltip": "Specify the List of ID of contacting endpoints. If not specified, all objects are returned. Example: 182.168.100.29, DESK-9867",
+          "description": "Specify the List of ID of contacting endpoints. If not specified, all objects are returned. Example: 182.168.100.29, DESK-9867"
+        },
+        {
+          "title": "Labels",
+          "name": "labels",
+          "visible": true,
+          "required": false,
+          "editable": true,
+          "type": "text",
+          "tooltip": "Specify the Label IDs in Comma separated Format. You may previously use the label API call to retrieve label IDs and names. If not specified, all objects are returned. Example: 2, 3, 5",
+          "description": "Specify the Label IDs in Comma separated Format. You may previously use the label API call to retrieve label IDs and names. If not specified, all objects are returned. Example: 2, 3, 5"
+        },
+        {
+          "title": "Page",
+          "name": "page",
+          "visible": true,
+          "required": false,
+          "editable": true,
+          "value": 1,
+          "type": "integer",
+          "tooltip": "Specify the Page number of the result set.Default value is : 1",
+          "description": "Specify the Page number of the result set.Default value is : 1"
+        },
+        {
+          "title": "Limit",
+          "name": "items",
+          "visible": true,
+          "required": false,
+          "editable": true,
+          "value": 50,
+          "type": "integer",
+          "tooltip": "Limit the number of results per page. Default value is : 50, Max value can be : 100",
+          "description": "Limit the number of results per page. Default value is : 50, Max value can be : 100"
+        }
+      ]
+    },
+    {
+      "operation": "close_incident",
+      "title": "Close Incident",
+      "description": "Closes a LUMU Incident according to Incident UUID and comment provided",
+      "category": "investigation",
+      "annotation": "close_incident",
+      "enabled": true,
+      "output_schema": {},
+      "parameters": [
+        {
+          "title": "Incident UUID",
+          "name": "incident_uuid",
+          "visible": true,
+          "required": true,
+          "editable": true,
+          "type": "text",
+          "tooltip": "Specify the Incident UUID which you want to close",
+          "description": "Specify the Incident UUID which you want to close"
+        },
+        {
+          "title": "Comment",
+          "name": "comment",
+          "visible": true,
+          "required": false,
+          "editable": true,
+          "type": "text",
+          "tooltip": "Specify the Comment to be added in the Incident log. Example: Internal penetration tests",
+          "description": "Specify the Comment to be added in the Incident log. Example: Internal penetration tests"
+        }
+      ]
+    }
+  ]
+}
